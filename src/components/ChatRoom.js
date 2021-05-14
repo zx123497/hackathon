@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import clsx from 'clsx';
 import Card from '@material-ui/core/Card';
@@ -14,8 +14,10 @@ import { red } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import useTheme from '@material-ui/core/styles/useTheme';
 import MoreVertIcon from '@material-ui/icons/MoreVert';
-
+import Input from '../components/Input/Input'
+import SendIcon from '@material-ui/icons/Send';
 const useStyles = makeStyles((theme) => ({
   root: {
     display:"flex",
@@ -42,11 +44,28 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const ChatRoom=()=> {
+    const theme = useTheme();
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
+  const [messages,setMessages] =  useState([]); 
+  const [msg,setMsg] = useState("");
   const handleExpandClick = () => {
     setExpanded(!expanded);
+  };
+  const handleMsgChanged = async(id,value) => {
+    setMsg(value);
+  };
+  const handleSendMsg = () => {
+    const newMsg={msg:<div style={{display:"flex" ,alignItems:"start"}}>
+        <Avatar style={{width:"30px",height:"30px",marginRight:"10px"}} aria-label="recipe" className={classes.avatar}>
+    E
+  </Avatar><Typography paragraph style={{backgroundColor:theme.palette.primary.light,width:"max-content",padding:"5px",borderRadius:"10px"}}>{msg}</Typography>
+    <div style={{flexGrow:1}}></div>
+    <div style={{color:theme.palette.text.disabled,fontSize:"12px"}}>AM 00:00</div>
+    </div>}
+    setMsg("");
+    setMessages(messages.concat(newMsg));
+
   };
 
   return (
@@ -58,39 +77,49 @@ const ChatRoom=()=> {
           </Avatar>
         }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+            <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
           </IconButton>
         }
-        
-      >Inasdasd</CardHeader>
+        title={<div style={{display:"flex"}}><Input
+            className="inputTitle"
+             key="message"
+             id="message"
+             elementType="input"
+             elementConfig={{
+                type: "text",
+                placeholder: "輸入訊息"
+            }}
+             value={msg}
+             onChange={handleMsgChanged}
+                                
+          /><IconButton onClick={handleSendMsg} color="primary" aria-label="傳送訊息">
+          <SendIcon />
+        </IconButton></div>}
+      />
       
       
       <CardActions disableSpacing>
        
         
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
+        
       </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
         <CardContent>
-          <Typography paragraph>Method:</Typography>
-          <Typography paragraph>
-            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set aside for 10
-            minutes.
-          </Typography>
           
-          <Typography>
-            Set aside off of the heat to let rest for 10 minutes, and then serve.
-          </Typography>
+          {messages.map((row)=>(
+              <div>
+                {row.msg}
+              </div>
+              
+          ))}
         </CardContent>
       </Collapse>
     </Card>
