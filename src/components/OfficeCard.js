@@ -18,7 +18,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function OfficeCard(props) {
+const OfficeCard = (props) => {
   const classes = useStyles();
 
   const { name, isManager } = props.office;
@@ -53,4 +53,6 @@ export default function OfficeCard(props) {
       </CardActionArea>
     </Card>
   );
-}
+};
+
+export default OfficeCard;
