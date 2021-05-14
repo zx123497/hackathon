@@ -3,7 +3,7 @@ import orange from "@material-ui/core/colors/orange";
 
 const theme = createMuiTheme({
   palette: {
-    type: "light",
+    
     background: {
       default: "#F5F5F5",
       paper: "#FFFFFF",

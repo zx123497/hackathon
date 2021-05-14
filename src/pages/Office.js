@@ -3,6 +3,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import bookshelf from "./../assets/images/book_hondana_syodana.png";
 import Container from "@material-ui/core/Container";
+import ChatRoom from "./../components/ChatRoom";
+import theme from "./../themes/theme";
 
 const useStyles = makeStyles({
   root: {},
@@ -13,16 +15,27 @@ const useStyles = makeStyles({
     // maxWidth: "300px",
     maxWidth: "50%",
   },
+  office: {
+    position: "relative",
+    "& .chatroom": {
+      position: "fixed",
+      bottom: theme.spacing(0),
+      right: theme.spacing(0),
+    },
+  },
 });
 
 const Office = () => {
   const classes = useStyles();
 
   return (
-    <Container width={1} height={1} bgcolor="grey.300" maxWidth="lg">
+    <div className={classes.office}>
+      <div className="chatroom">
+        <ChatRoom />
+      </div>
       <img className={classes.bookshelf} src={bookshelf} alt="bookshelf" />
       welcome to the office.
-    </Container>
+    </div>
   );
 };
 
