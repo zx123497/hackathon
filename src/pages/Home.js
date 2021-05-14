@@ -1,5 +1,6 @@
 import React from "react";
 import Grid from "@material-ui/core/Grid";
+import Box from "@material-ui/core/Box";
 import OfficeCard from "./../components/OfficeCard";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
@@ -8,7 +9,10 @@ import theme from "./../themes/theme";
 
 const useStyles = makeStyles({
   root: {
+    width: "100%",
     margin: "2% 5%",
+    display: "flex",
+    justifyContent: "center",
   },
   fab: {
     position: "fixed",
@@ -24,17 +28,25 @@ const Home = () => {
     { name: "Office 001", isManager: true },
     { name: "Office 002", isManager: false },
     { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
+    { name: "Office 003", isManager: false },
   ];
 
   return (
     <div className={classes.root}>
-      <Grid container spacing={1}>
+      <Box display="flex" flexWrap="wrap" spacing={1}>
         {offices.map((office) => (
-          <Grid item xs>
+          // minWidth有點問題
+          <Box p={1} pt={2} minWidth={1 / 5}>
             <OfficeCard office={office}></OfficeCard>
-          </Grid>
+          </Box>
         ))}
-      </Grid>
+      </Box>
       <Fab
         aria-label="add"
         color="primary"
