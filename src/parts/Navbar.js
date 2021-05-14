@@ -1,19 +1,32 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
-import AppBar from '@material-ui/core/AppBar';
-import Toolbar from '@material-ui/core/Toolbar';
-import Typography from '@material-ui/core/Typography';
-import Button from '@material-ui/core/Button';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
+import React from "react";
+import { makeStyles } from "@material-ui/core/styles";
+import AppBar from "@material-ui/core/AppBar";
+import Button from "@material-ui/core/Button";
+
+import {
+  Toolbar,
+  IconButton,
+  Typography,
+  Avatar,
+  Grid,
+} from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
-  
-  menuButton: {
-    marginRight: theme.spacing(2),
+  Navbar: {
+    backgroundColor: theme.palette.background.paper,
   },
-  title: {
+  middle: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: 8,
+  },
+  Brandname: {
     flexGrow: 1,
+    display: "flex",
+
+    alignItems: "center",
+    margin: 8,
   },
 }));
 
@@ -21,18 +34,25 @@ export default function ButtonAppBar() {
   const classes = useStyles();
 
   return (
-    <div className={classes.root}>
-      <AppBar position="static">
-        <Toolbar>
-          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
-            <MenuIcon />
+    <AppBar position="static" className={classes.Navbar}>
+      <Grid display="inline" container justify="flex-start">
+        <Grid item className={classes.Brandname}>
+          <Typography className={classes.middle}>MyRemoteOffice</Typography>
+        </Grid>
+        <Grid item>
+          <IconButton>
+            <Avatar src="" />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
-        </Toolbar>
-      </AppBar>
-    </div>
+        </Grid>
+        <Grid item className={classes.middle}>
+          <Typography className={classes.middle}>Hello, User</Typography>
+        </Grid>
+        <Grid item className={classes.middle}>
+          <Button variant="outlined" color="primary">
+            登出
+          </Button>
+        </Grid>
+      </Grid>
+    </AppBar>
   );
 }

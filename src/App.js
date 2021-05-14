@@ -9,7 +9,6 @@ import test from "./pages/test";
 
 const App = () => {
   const appliedTheme = theme;
-
   return (
     <BrowserRouter>
       <ThemeProvider theme={appliedTheme}>
