@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Card from "@material-ui/core/Card";
 import CardActionArea from "@material-ui/core/CardActionArea";
@@ -17,8 +17,18 @@ const useStyles = makeStyles({
   },
 });
 
-export default function OfficeCard() {
+export default function OfficeCard(props) {
   const classes = useStyles();
+
+  // if props isManager then render "Is Manager Tag"
+  let isManagerTag = <></>;
+  if (props.isManager) {
+    isManagerTag = (
+      <Typography variant="h5" component="h2" align="left">
+        Manager
+      </Typography>
+    );
+  }
 
   return (
     <Card className={classes.root}>
@@ -29,19 +39,13 @@ export default function OfficeCard() {
           title="Contemplative Reptile"
         />
         <CardContent>
-          <Typography gutterBottom variant="h5" component="h2">
-            Lizard
-          </Typography>
-          <Typography variant="body2" color="textSecondary" component="p">
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+          <Typography variant="h5" component="h2" align="left">
+            {props.name}
+            {isManagerTag}
           </Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Button size="small" color="primary">
-          Share
-        </Button>
         <Button size="small" color="primary">
           Learn More
         </Button>
