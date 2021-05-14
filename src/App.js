@@ -5,7 +5,8 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './themes/theme';
 import Header from './parts/Navbar';
-import test from './pages/test'
+import test from './pages/test';
+import Office from './pages/Office'
 
 const App = () => {
     const appliedTheme = theme;
@@ -23,6 +24,7 @@ const App = () => {
                                     <Switch>
                                         <Route path='/' exact component={test} />  
                                         <Route path='/test' exact component={test} />  
+                                        <Route path='/office' exact component={Office} />  
                                     </Switch>
                                 </main>
                             </>
