@@ -5,6 +5,7 @@ import CardActionArea from "@material-ui/core/CardActionArea";
 import CardActions from "@material-ui/core/CardActions";
 import CardContent from "@material-ui/core/CardContent";
 import CardMedia from "@material-ui/core/CardMedia";
+import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 
@@ -17,14 +18,15 @@ const useStyles = makeStyles({
   },
 });
 
-export default function OfficeCard(props) {
+const OfficeCard = (props) => {
   const classes = useStyles();
 
+  const { name, isManager } = props.office;
   // if props isManager then render "Is Manager Tag"
-  let isManagerTag = <></>;
-  if (props.isManager) {
-    isManagerTag = (
-      <Typography variant="h5" component="h2" align="left">
+  let managerTag = <></>;
+  if (isManager) {
+    managerTag = (
+      <Typography variant="h6" component="h6" color="primary">
         Manager
       </Typography>
     );
@@ -36,20 +38,21 @@ export default function OfficeCard(props) {
         <CardMedia
           className={classes.media}
           image="https://placekitten.com/g/200/300"
-          title="Contemplative Reptile"
+          title="Is this image title?"
         />
         <CardContent>
-          <Typography variant="h5" component="h2" align="left">
-            {props.name}
-            {isManagerTag}
-          </Typography>
+          <Box display="flex">
+            <Box flexGrow={1}>
+              <Typography variant="h5" component="h2">
+                {name}
+              </Typography>
+            </Box>
+            <Box>{managerTag}</Box>
+          </Box>
         </CardContent>
       </CardActionArea>
-      <CardActions>
-        <Button size="small" color="primary">
-          Learn More
-        </Button>
-      </CardActions>
     </Card>
   );
-}
+};
+
+export default OfficeCard;

@@ -6,6 +6,8 @@ import { ThemeProvider } from "@material-ui/core/styles";
 import theme from "./themes/theme";
 import Header from "./parts/Navbar";
 import test from "./pages/test";
+import Home from "./pages/Home";
+import Office from "./pages/Office";
 
 const App = () => {
   const appliedTheme = theme;
@@ -21,8 +23,9 @@ const App = () => {
                   <Header />
                   <main>
                     <Switch>
-                      <Route path="/" exact component={test} />
+                      <Route path="/" exact component={Home} />
                       <Route path="/test" exact component={test} />
+                      <Route path="/office" exact component={Office} />
                     </Switch>
                   </main>
                 </>
