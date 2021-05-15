@@ -18,6 +18,11 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: "1em",
     left: "2em",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
   },
   bulletinBoard: {
     maxHeight: "80%",
@@ -64,13 +69,24 @@ const Office = () => {
 
   const [modalOpenState, setModalOpenState] = useState({
     open: false,
+    body: <></>,
   });
 
   const handleModalOpen = () => {
+    // Not working now.
     setModalOpenState({ ...modalOpenState, open: true });
   };
+
   const handleBookshelf = () => {
     handleModalOpen();
+    const body = (
+      <>
+        <h3 className="title">~檔案櫃~</h3>
+        <div className="files"></div>
+        <Button className="uploadBtn">上傳檔案</Button>
+      </>
+    );
+    setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
   const handleModalClose = () => {
@@ -84,7 +100,12 @@ const Office = () => {
       <div className="chatroom">
         <ChatRoom />
       </div>
-      <img className={classes.bookshelf} src={bookshelf} alt="bookshelf" />
+      <img
+        className={classes.bookshelf}
+        src={bookshelf}
+        alt="bookshelf"
+        onClick={handleBookshelf}
+      />
       <img
         className={classes.bulletinBoard}
         src={bulletinBoard}
@@ -103,9 +124,7 @@ const Office = () => {
         opened={modalOpenState.open}
         handleClose={handleModalClose}
       >
-        <h3 className="title">~檔案櫃~</h3>
-        <div className="files"></div>
-        <Button className="uploadBtn">上傳檔案</Button>
+        {modalOpenState.body}
       </Modal>
     </div>
   );
