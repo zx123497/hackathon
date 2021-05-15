@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-
+import { Link } from 'react-router-dom';
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -33,7 +33,7 @@ const OfficeCard = (props) => {
   }
 
   return (
-    <Card className={classes.root}>
+    <Card component={Link}  to={'/office'} className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}

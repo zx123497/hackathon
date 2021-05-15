@@ -2,6 +2,8 @@ import React,{useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Box from "@material-ui/core/Box";
 import bookshelf from "./../assets/images/book_hondana_syodana.png";
+import background from "./../assets/images/background.png";
+import timecard from "./../assets/images/timecard_machine.png";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import ChatRoom from "./../components/ChatRoom";
@@ -23,12 +25,25 @@ const useStyles = makeStyles({
   },
   office: {
     position: "relative",
+    height:"calc",
+  
+    
     "& .chatroom": {
       position: "fixed",
       bottom: theme.spacing(0),
       right: theme.spacing(0),
     },
-    
+    "& .background":{
+      width:"120vw",
+     
+      position:"absolute",
+      overflow: "auto",
+      
+    },
+    "& .content":{
+      
+      position:"relative",
+    },
   },
   Modal:{
     "& .title":{
@@ -73,11 +88,16 @@ const handleModalOpen = () => {
 
   return (
     <div className={classes.office}>
-      <div className="chatroom">
-        <ChatRoom />
-      </div>
+      
+        
+
+        
+  
+         
+      
+      
       <img className={classes.bookshelf} src={bookshelf} alt="bookshelf" onClick={handleBookshelf}/>
-      welcome to the office.
+      <img className={classes.bookshelf} src={timecard} alt="bookshelf" onClick={handleBookshelf}/>
       <Modal
                 className={classes.Modal}
                 opened={modalOpenState.open}
@@ -88,6 +108,12 @@ const handleModalOpen = () => {
                 <Button className="uploadBtn">上傳檔案</Button>
             </Modal>
             
+
+        
+      
+      <div className="chatroom">
+        <ChatRoom />
+      </div>
     </div>
   );
 };
