@@ -159,7 +159,7 @@ const useStyles = makeStyles({
     width: "auto",
     position: "fixed",
     bottom: "48%",
-    left: "63%",
+    left: "63.3%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",

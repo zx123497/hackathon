@@ -63,7 +63,9 @@ const ChatRoom = () => {
             style={{ width: "30px", height: "30px", marginRight: "10px" }}
             aria-label="recipe"
             className={classes.avatar}
-          ></Avatar>
+          >
+            E
+          </Avatar>
           <Typography
             paragraph
             style={{
