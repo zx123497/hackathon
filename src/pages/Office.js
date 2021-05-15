@@ -21,7 +21,8 @@ import dooropen from "../assets/images/door_half_open.png";
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
-
+import Music from "../assets/images/music_chikuonki.png";
+import Player from "../components/Player";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -30,6 +31,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
+import Mozart from "./../assets/images/Mozart.jpg";
 
 const useStyles = makeStyles({
   root: {
@@ -169,6 +171,18 @@ const useStyles = makeStyles({
   word: {
     textAlign: "center",
   },
+  music: {
+    maxHeight: "15%",
+    width: "auto",
+    position: "fixed",
+    bottom: "30%",
+    left: "70%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
 });
 function ActionLink() {
   function handleClick(e) {
@@ -198,6 +212,49 @@ const Office = () => {
     open: false,
   });
 
+  const [MusicOpenState, setMusicOpenState] = useState({
+    open: false,
+  });
+
+  const handleMusicOpen = () => {
+    setMusicOpenState({ ...MusicOpenState, open: true });
+  };
+
+  const handleMusic = () => {
+    handleMusicOpen();
+  };
+
+  const handleMusicClose = () => {
+    setMusicOpenState({
+      open: false,
+    });
+  };
+  const [songs] = useState([
+    {
+      title: "K545",
+      artist: "Mozart",
+      src: Mozart,
+    },
+    {
+      title: "Song 2",
+      artist: "Artist 2",
+      img_src: "",
+      src: "",
+    },
+    {
+      title: "Song 3",
+      artist: "Artist 3",
+      img_src: "",
+      src: "",
+    },
+    {
+      title: "Song 4",
+      artist: "Artist 4",
+      img_src: "",
+      src: "",
+    },
+  ]);
+
   useEffect(() => {
     const userphone = [
       { name: "Emily Chen", phonenum: "0901234567" },
@@ -208,14 +265,6 @@ const Office = () => {
     ];
     setmyRows(userphone);
   }, []);
-
-  // const userphone = [
-  //   { name: "Emily Chen", phonenum: "0901234567" },
-  //   { name: "Kevin Niu", phonenum: "0901234567" },
-  //   { name: "Allen Hsieh", phonenum: "0901234567" },
-  //   { name: "Martin Lee", phonenum: "0901234567" },
-  //   { name: "Harrison Lin", phonenum: "0901234567" },
-  // ];
 
   useEffect(() => {
     const fakeTime = [
@@ -377,6 +426,21 @@ const Office = () => {
           alt="bulletin board"
         />
       </Link>
+      <Modal opened={MusicOpenState.open} handleClose={handleMusicClose}>
+        <h3>My Music</h3>
+        <Player
+          posts={[
+            { id: 1, author: "Mozart Piano" },
+            { id: 2, author: "Pop Music" },
+            { id: 3, author: "Rap Music" },
+            { id: 4, author: "Tchaikovsky" },
+            { id: 5, author: "Electronics" },
+            { id: 6, author: "Paganini" },
+            { id: 7, author: "Jay Chou" },
+            { id: 8, author: "Schubert" },
+          ]}
+        />
+      </Modal>
 
       <img
         className={classes.bookshelf}
@@ -390,6 +454,12 @@ const Office = () => {
         src={bulletinBoard}
         alt="bulletin board"
         onClick={handleBulletinBoard}
+      />
+      <img
+        className={classes.music}
+        src={Music}
+        alt="bulletin board"
+        onClick={handleMusic}
       />
 
       <img
