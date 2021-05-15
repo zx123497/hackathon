@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) => ({
         top: "0%",
         left: "0%",
         display: "flex",
-        backgroundColor: `${theme.palette.background.paper}AA`,
+        backgroundColor: `${theme.palette.background.paper}`,
       },
       "& .modalContent": {
         width: "100%",
