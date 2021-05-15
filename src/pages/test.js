@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import PostitModal from "../components/PostitModal";
 
 function test() {
-    return (
-        <div>
-            test
-        </div>
-    )
+  return (
+    <div>
+      <PostitModal />
+    </div>
+  );
 }
 
-export default test
+export default test;
