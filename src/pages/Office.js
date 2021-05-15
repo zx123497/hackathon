@@ -14,6 +14,7 @@ import coffeeMachine from "./../assets/images/coffee_self_service.png";
 import locker from "./../assets/images/kagu_cabinet_locker_close.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
+import Coffee from "./../components/Coffee";
 import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
@@ -350,7 +351,10 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
-  const handleCoffeeMachine = () => {};
+  const handleCoffeeMachine = () => {
+    const body = <Coffee />;
+    setModalOpenState({ ...modalOpenState, open: true, body });
+  };
 
   const [name, setName] = useState("");
   const [pnum, setNum] = useState("");
