@@ -26,16 +26,30 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    backgroundColor:"#FBC"
+  },
   media: {
     height: 140,
+  },
+  bookshelf: {
+    maxHeight: "80%",
+    width: "auto",
+    position: "fixed",
+    bottom: "1rem",
+    left: "5%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
   },
   timecard: {
     maxHeight: "20%",
     width: "auto",
     position: "fixed",
-    bottom: "50%",
-    left: "40%",
+    bottom: "60%",
+    left: "30%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -46,8 +60,8 @@ const useStyles = makeStyles({
     maxHeight: "80%",
     width: "auto",
     position: "fixed",
-    bottom: "1em",
-    left: "50%",
+    bottom: "1rem",
+    left: "38%",
     // maxWidth: "300px",
     maxWidth: "50%",
     "&:hover": {
@@ -57,8 +71,9 @@ const useStyles = makeStyles({
     },
   },
   office: {
-    position: "relative",
-    height: "calc",
+    backgroundColor:"#FBC",
+    height:"93vh",
+    
 
     "& .chatroom": {
       position: "fixed",
@@ -76,11 +91,11 @@ const useStyles = makeStyles({
     },
   },
   telephone: {
-    maxHeight: "10%",
-    maxWidth: "10%",
-    transform: "scale(1.05)",
-    transition: "0.5s",
-    cursor: "pointer",
+    maxHeight: "15%",
+    width: "auto",
+    position: "fixed",
+    bottom: "40%",
+    left: "80%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -241,6 +256,12 @@ const Office = () => {
       <img
         className={classes.timecard}
         src={timecardMachine}
+        alt="bookshelf"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
         alt="bookshelf"
         onClick={handleTimeCard}
       />
