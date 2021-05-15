@@ -29,6 +29,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#FBC",
@@ -49,16 +51,16 @@ const useStyles = makeStyles({
     },
   },
   door: {
-    maxHeight: "65%",
+    maxHeight: "75%",
     width: "auto",
     position: "fixed",
-    bottom: "16%",
+    bottom: "7%",
     left: "75%",
-    "&:hover": {
-      transform: "scale(1.05)",
-      transition: "0.5s",
-      cursor: "pointer",
-    },
+    // "&:hover": {
+    //   transform: "scale(1.05)",
+    //   transition: "0.5s",
+    //   cursor: "pointer",
+    // },
   },
   timecard: {
     maxHeight: "15%",
@@ -291,12 +293,16 @@ const Office = () => {
           <PhoneBook phone={phone}></PhoneBook>
         ))}
       </Modal>
-      <img
-        className={classes.door}
-        src={doorclose}
-        onMouseOver={(e) => (e.currentTarget.src = dooropen)}
-        alt="bulletin board"
-      />
+      <Link to={"/"}>
+        <img
+          className={classes.door}
+          src={doorclose}
+          onMouseOver={(e) => (e.currentTarget.src = dooropen)}
+          onMouseOut={(e) => (e.currentTarget.src = doorclose)}
+          alt="bulletin board"
+        />
+      </Link>
+
       <img
         className={classes.bookshelf}
         src={bookshelf}
