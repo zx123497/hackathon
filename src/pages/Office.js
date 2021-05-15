@@ -12,8 +12,12 @@ import printer from "./../assets/images/kaden_printer.png";
 import leaderboard from "./../assets/images/champion_board.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
+import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
+import desk from "../assets/images/work_desk.png";
+import doorclose from "../assets/images/door_close.png";
+import dooropen from "../assets/images/door_half_open.png";
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
@@ -26,28 +30,74 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    backgroundColor: "#FBC",
+  },
   media: {
     height: 140,
   },
-  timecard: {
-    maxHeight: "20%",
+  bookshelf: {
+    maxHeight: "90%",
     width: "auto",
     position: "fixed",
-    bottom: "50%",
-    left: "40%",
+    bottom: "1rem",
+    left: "5%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
       cursor: "pointer",
     },
   },
-  bulletinBoard: {
-    maxHeight: "80%",
+  door: {
+    maxHeight: "65%",
     width: "auto",
     position: "fixed",
-    bottom: "1em",
-    left: "50%",
+    bottom: "16%",
+    left: "75%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  timecard: {
+    maxHeight: "15%",
+    width: "auto",
+    position: "fixed",
+    bottom: "35%",
+    left: "47%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  desk: {
+    maxHeight: "40%",
+    width: "30%",
+    position: "fixed",
+    bottom: "1rem",
+    left: "30%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  floor: {
+    height: "20%",
+    width: "100vw",
+    backgroundColor: "#AF8A23",
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+  },
+  bulletinBoard: {
+    maxHeight: "45%",
+    width: "auto",
+    position: "fixed",
+    bottom: "50 rem",
+    left: "30%",
     // maxWidth: "300px",
     maxWidth: "50%",
     "&:hover": {
@@ -57,8 +107,8 @@ const useStyles = makeStyles({
     },
   },
   office: {
-    position: "relative",
-    height: "calc",
+    backgroundColor: "#DFB285",
+    height: "93vh",
 
     "& .chatroom": {
       position: "fixed",
@@ -76,11 +126,11 @@ const useStyles = makeStyles({
     },
   },
   telephone: {
-    maxHeight: "10%",
-    maxWidth: "10%",
-    transform: "scale(1.05)",
-    transition: "0.5s",
-    cursor: "pointer",
+    maxHeight: "15%",
+    width: "auto",
+    position: "fixed",
+    bottom: "35%",
+    left: "35%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -135,8 +185,7 @@ const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [arrive, setArrive] = useState(false);
-  const [namerow, setName] = useState([]);
-  const [phonerow, setphone] = useState([]);
+  const [myrows, setmyRows] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
     open: false,
     openTimeCard: false,
@@ -147,13 +196,24 @@ const Office = () => {
     open: false,
   });
 
-  const userphone = [
-    { name: "Emily Chen", phonenum: "0901234567" },
-    { name: "Kevin Niu", phonenum: "0901234567" },
-    { name: "Allen Hsieh", phonenum: "0901234567" },
-    { name: "Martin Lee", phonenum: "0901234567" },
-    { name: "Harrison Lin", phonenum: "0901234567" },
-  ];
+  useEffect(() => {
+    const userphone = [
+      { name: "Emily Chen", phonenum: "0901234567" },
+      { name: "Kevin Niu", phonenum: "0901234567" },
+      { name: "Allen Hsieh", phonenum: "0901234567" },
+      { name: "Martin Lee", phonenum: "0901234567" },
+      { name: "Harrison Lin", phonenum: "0901234567" },
+    ];
+    setmyRows(userphone);
+  }, []);
+
+  // const userphone = [
+  //   { name: "Emily Chen", phonenum: "0901234567" },
+  //   { name: "Kevin Niu", phonenum: "0901234567" },
+  //   { name: "Allen Hsieh", phonenum: "0901234567" },
+  //   { name: "Martin Lee", phonenum: "0901234567" },
+  //   { name: "Harrison Lin", phonenum: "0901234567" },
+  // ];
 
   useEffect(() => {
     const fakeTime = [
@@ -163,6 +223,7 @@ const Office = () => {
     ];
     setRows(fakeTime);
   }, []);
+
   const handleModalOpen = () => {
     setModalOpenState({ ...modalOpenState, open: true });
   };
@@ -191,11 +252,17 @@ const Office = () => {
     });
   };
   const handlenewphone = () => {
-    const namerow = { name: "Emily", phonenum: "09:00:00" };
-    const new_arr = rows.concat(namerow);
-    setRows(namerow);
+    const namerow = { name: name, phonenum: pnum };
+    const new_arr = myrows.concat(namerow);
+    setmyRows(new_arr);
 
-    console.log(rows);
+    console.log(new_arr);
+  };
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleChangeNum = (e) => {
+    setNum(e.target.value);
   };
 
   const handleArrive = () => {
@@ -224,6 +291,24 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, openTimeCard: true });
   };
 
+  const handleBulletinBoard = () => {
+    const body = (
+      <PostList
+        posts={[
+          { id: 1, content: "this is a test of postit", author: "manager" },
+          { id: 2, content: "smells like teen spirit", author: "haha" },
+          { id: 3, content: "daydream believer", author: "The Monkees" },
+          { id: 4, content: "Fly me to the moon", author: "John" },
+          { id: 5, content: "Fly me to the moon", author: "John" },
+          { id: 6, content: "Fly me to the moon", author: "John" },
+          { id: 7, content: "Fly me to the moon", author: "John" },
+        ]}
+      />
+    );
+    setModalOpenState({ ...modalOpenState, open: true, body });
+  };
+  const [name, setName] = useState("");
+  const [pnum, setNum] = useState("");
   const handleModalClose = () => {
     setModalOpenState({
       open: false,
@@ -233,14 +318,8 @@ const Office = () => {
 
   return (
     <div className={classes.office}>
-      <div className="chatroom">
-        <ChatRoom />
-      </div>
-      <img
-        src={Telephone}
-        className={classes.telephone}
-        onClick={handleTelephone}
-      />
+      <div className={classes.floor}></div>
+
       <Modal
         opened={TelephoneOpenState.open}
         handleClose={handleTelephoneClose}
@@ -249,10 +328,10 @@ const Office = () => {
         <br></br>
         <div>
           <tr>
-            Name: <input id="newname" type="text" value="" />
+            Name: <input type="text" onChange={handleChange} value={name} />
           </tr>
           <tr>
-            Phone: <input type="text" value="" />
+            Phone: <input type="text" onChange={handleChangeNum} value={pnum} />
           </tr>
           <div style={{ display: "flex" }}>
             <span style={{ flexGrow: 1 }}></span>
@@ -262,7 +341,7 @@ const Office = () => {
                 justifyContent: "center",
                 margin: "1rem",
               }}
-              onclick={handlenewphone}
+              onClick={handlenewphone}
               variant="outlined"
               color="primary"
             >
@@ -270,10 +349,16 @@ const Office = () => {
             </Button>
           </div>
         </div>
-        {userphone.map((phone) => (
+        {myrows.map((phone) => (
           <PhoneBook phone={phone}></PhoneBook>
         ))}
       </Modal>
+      <img
+        className={classes.door}
+        src={doorclose}
+        onMouseOver={(e) => (e.currentTarget.src = dooropen)}
+        alt="bulletin board"
+      />
       <img
         className={classes.bookshelf}
         src={bookshelf}
@@ -282,8 +367,39 @@ const Office = () => {
       />
 
       <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
+        alt="bulletin board"
+        onClick={handleBulletinBoard}
+      />
+
+      <img
+        className={classes.desk}
+        src={desk}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.timecard}
+        src={timecard}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        src={Telephone}
+        className={classes.telephone}
+        onClick={handleTelephone}
+      />
+      {/* <img
+        className={classes.bookshelf}
         className={classes.timecard}
         src={timecardMachine}
+        alt="bookshelf"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
         alt="bookshelf"
         onClick={handleTimeCard}
       />
@@ -336,6 +452,9 @@ const Office = () => {
           </Button>
         </div>
       </Modal>
+      <div className="chatroom">
+        <ChatRoom />
+      </div>
     </div>
   );
 };
