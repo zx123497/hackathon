@@ -9,8 +9,10 @@ import leaderboard from "./../assets/images/champion_board.png";
 import Container from "@material-ui/core/Container";
 import Button from "@material-ui/core/Button";
 import ChatRoom from "./../components/ChatRoom";
+import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
+
 const useStyles = makeStyles({
   bookshelf: {
     maxHeight: "80%",
@@ -89,6 +91,23 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
+  const handleBulletinBoard = () => {
+    const body = (
+      <PostList
+        posts={[
+          { id: 1, content: "this is a test of postit", author: "manager" },
+          { id: 2, content: "smells like teen spirit", author: "haha" },
+          { id: 3, content: "daydream believer", author: "The Monkees" },
+          { id: 4, content: "Fly me to the moon", author: "John" },
+          { id: 5, content: "Fly me to the moon", author: "John" },
+          { id: 6, content: "Fly me to the moon", author: "John" },
+          { id: 7, content: "Fly me to the moon", author: "John" },
+        ]}
+      />
+    );
+    setModalOpenState({ ...modalOpenState, open: true, body });
+  };
+
   const handleModalClose = () => {
     setModalOpenState({
       open: false,
@@ -110,6 +129,7 @@ const Office = () => {
         className={classes.bulletinBoard}
         src={bulletinBoard}
         alt="bulletin board"
+        onClick={handleBulletinBoard}
       />
       {/* <img
         className={classes.bookshelf}
