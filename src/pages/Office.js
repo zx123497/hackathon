@@ -12,8 +12,10 @@ import printer from "./../assets/images/kaden_printer.png";
 import leaderboard from "./../assets/images/champion_board.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
+import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
+import desk from '../assets/images/work_desk.png'
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
@@ -33,7 +35,7 @@ const useStyles = makeStyles({
     height: 140,
   },
   bookshelf: {
-    maxHeight: "80%",
+    maxHeight: "90%",
     width: "auto",
     position: "fixed",
     bottom: "1rem",
@@ -45,10 +47,22 @@ const useStyles = makeStyles({
     },
   },
   timecard: {
-    maxHeight: "20%",
+    maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "60%",
+    bottom: "35%",
+    left: "47%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  desk: {
+    maxHeight: "40%",
+    width: "30%",
+    position: "fixed",
+    bottom: "1rem",
     left: "30%",
     "&:hover": {
       transform: "scale(1.05)",
@@ -56,12 +70,21 @@ const useStyles = makeStyles({
       cursor: "pointer",
     },
   },
+  floor: {
+    height: "20%",
+    width: "100vw",
+    backgroundColor:"#AF8A23",
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+    
+  },
   bulletinBoard: {
-    maxHeight: "80%",
+    maxHeight: "45%",
     width: "auto",
     position: "fixed",
-    bottom: "1rem",
-    left: "38%",
+    bottom: "50 rem",
+    left: "30%",
     // maxWidth: "300px",
     maxWidth: "50%",
     "&:hover": {
@@ -71,7 +94,7 @@ const useStyles = makeStyles({
     },
   },
   office: {
-    backgroundColor:"#FBC",
+    backgroundColor:"#DFB285",
     height:"93vh",
     
 
@@ -94,8 +117,8 @@ const useStyles = makeStyles({
     maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "40%",
-    left: "80%",
+    bottom: "35%",
+    left: "35%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -175,7 +198,7 @@ const Office = () => {
         <Button className="uploadBtn">上傳檔案</Button>
       </>
     );
-    setModalOpenState({ ...modalOpenState, open: true,body });
+    setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
   const handleTelephoneOpen = () => {
@@ -190,7 +213,6 @@ const Office = () => {
     setTelephoneOpenState({
       open: false,
     });
-   
   };
 
   const handleArrive = () => {
@@ -219,6 +241,23 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, openTimeCard: true });
   };
 
+  const handleBulletinBoard = () => {
+    const body = (
+      <PostList
+        posts={[
+          { id: 1, content: "this is a test of postit", author: "manager" },
+          { id: 2, content: "smells like teen spirit", author: "haha" },
+          { id: 3, content: "daydream believer", author: "The Monkees" },
+          { id: 4, content: "Fly me to the moon", author: "John" },
+          { id: 5, content: "Fly me to the moon", author: "John" },
+          { id: 6, content: "Fly me to the moon", author: "John" },
+          { id: 7, content: "Fly me to the moon", author: "John" },
+        ]}
+      />
+    );
+    setModalOpenState({ ...modalOpenState, open: true, body });
+  };
+
   const handleModalClose = () => {
     setModalOpenState({
       open: false,
@@ -228,14 +267,11 @@ const Office = () => {
 
   return (
     <div className={classes.office}>
+      <div className={classes.floor}></div>
       <div className="chatroom">
         <ChatRoom />
       </div>
-      <img
-        src={Telephone}
-        className={classes.telephone}
-        onClick={handleTelephone}
-      />
+      
       <Modal
         opened={TelephoneOpenState.open}
         handleClose={handleTelephoneClose}
@@ -254,6 +290,31 @@ const Office = () => {
       />
 
       <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
+        alt="bulletin board"
+        onClick={handleBulletinBoard}
+      />
+      
+      <img
+        className={classes.desk}
+        src={desk}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.timecard}
+        src={timecard}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        src={Telephone}
+        className={classes.telephone}
+        onClick={handleTelephone}
+      />
+      {/* <img
+        className={classes.bookshelf}
         className={classes.timecard}
         src={timecardMachine}
         alt="bookshelf"
