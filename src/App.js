@@ -11,7 +11,6 @@ import Office from "./pages/Office";
 
 const App = () => {
   const appliedTheme = theme;
-
   return (
     <BrowserRouter>
       <ThemeProvider theme={appliedTheme}>
