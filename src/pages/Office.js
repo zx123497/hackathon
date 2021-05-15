@@ -15,7 +15,7 @@ import ChatRoom from "./../components/ChatRoom";
 import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
-
+import desk from "../assets/images/work_desk.png";
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
@@ -28,28 +28,62 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles({
-  root: {},
+  root: {
+    backgroundColor: "#FBC",
+  },
   media: {
     height: 140,
   },
-  timecard: {
-    maxHeight: "20%",
+  bookshelf: {
+    maxHeight: "90%",
     width: "auto",
     position: "fixed",
-    bottom: "50%",
-    left: "90%",
+    bottom: "1rem",
+    left: "5%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
       cursor: "pointer",
     },
   },
-  bulletinBoard: {
-    maxHeight: "80%",
+  timecard: {
+    maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "1em",
-    left: "50%",
+    bottom: "35%",
+    left: "47%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  desk: {
+    maxHeight: "40%",
+    width: "30%",
+    position: "fixed",
+    bottom: "1rem",
+    left: "30%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  floor: {
+    height: "20%",
+    width: "100vw",
+    backgroundColor: "#AF8A23",
+    position: "fixed",
+    bottom: 0,
+    left: 0,
+  },
+  bulletinBoard: {
+    maxHeight: "45%",
+    width: "auto",
+    position: "fixed",
+    bottom: "50 rem",
+    left: "30%",
     // maxWidth: "300px",
     maxWidth: "50%",
     "&:hover": {
@@ -59,8 +93,8 @@ const useStyles = makeStyles({
     },
   },
   office: {
-    position: "relative",
-    height: "calc",
+    backgroundColor: "#DFB285",
+    height: "93vh",
 
     "& .chatroom": {
       position: "fixed",
@@ -78,11 +112,11 @@ const useStyles = makeStyles({
     },
   },
   telephone: {
-    maxHeight: "10%",
-    maxWidth: "10%",
-    transform: "scale(1.05)",
-    transition: "0.5s",
-    cursor: "pointer",
+    maxHeight: "15%",
+    width: "auto",
+    position: "fixed",
+    bottom: "35%",
+    left: "35%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -231,14 +265,11 @@ const Office = () => {
 
   return (
     <div className={classes.office}>
+      <div className={classes.floor}></div>
       <div className="chatroom">
         <ChatRoom />
       </div>
-      <img
-        src={Telephone}
-        className={classes.telephone}
-        onClick={handleTelephone}
-      />
+
       <Modal
         opened={TelephoneOpenState.open}
         handleClose={handleTelephoneClose}
@@ -262,10 +293,34 @@ const Office = () => {
         alt="bulletin board"
         onClick={handleBulletinBoard}
       />
+
+      <img
+        className={classes.desk}
+        src={desk}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.timecard}
+        src={timecard}
+        alt="bulletin board"
+        onClick={handleTimeCard}
+      />
+      <img
+        src={Telephone}
+        className={classes.telephone}
+        onClick={handleTelephone}
+      />
       {/* <img
         className={classes.bookshelf}
         className={classes.timecard}
         src={timecardMachine}
+        alt="bookshelf"
+        onClick={handleTimeCard}
+      />
+      <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
         alt="bookshelf"
         onClick={handleTimeCard}
       />
