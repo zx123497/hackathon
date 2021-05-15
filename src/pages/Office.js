@@ -16,6 +16,8 @@ import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
 import desk from "../assets/images/work_desk.png";
+import doorclose from "../assets/images/door_close.png";
+import dooropen from "../assets/images/door_half_open.png";
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
@@ -40,6 +42,18 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: "1rem",
     left: "5%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  door: {
+    maxHeight: "65%",
+    width: "auto",
+    position: "fixed",
+    bottom: "16%",
+    left: "75%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -266,9 +280,6 @@ const Office = () => {
   return (
     <div className={classes.office}>
       <div className={classes.floor}></div>
-      <div className="chatroom">
-        <ChatRoom />
-      </div>
 
       <Modal
         opened={TelephoneOpenState.open}
@@ -280,6 +291,12 @@ const Office = () => {
           <PhoneBook phone={phone}></PhoneBook>
         ))}
       </Modal>
+      <img
+        className={classes.door}
+        src={doorclose}
+        onMouseOver={(e) => (e.currentTarget.src = dooropen)}
+        alt="bulletin board"
+      />
       <img
         className={classes.bookshelf}
         src={bookshelf}
@@ -373,6 +390,9 @@ const Office = () => {
           </Button>
         </div>
       </Modal>
+      <div className="chatroom">
+        <ChatRoom />
+      </div>
     </div>
   );
 };
