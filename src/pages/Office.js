@@ -153,7 +153,14 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, open: true });
   };
   const handleBookshelf = () => {
-    handleModalOpen();
+    const body = (
+      <>
+        <h3 className="title">~檔案櫃~</h3>
+        <div className="files"></div>
+        <Button className="uploadBtn">上傳檔案</Button>
+      </>
+    );
+    setModalOpenState({ ...modalOpenState, open: true,body });
   };
 
   const handleTelephoneOpen = () => {
@@ -168,14 +175,7 @@ const Office = () => {
     setTelephoneOpenState({
       open: false,
     });
-    const body = (
-      <>
-        <h3 className="title">~檔案櫃~</h3>
-        <div className="files"></div>
-        <Button className="uploadBtn">上傳檔案</Button>
-      </>
-    );
-    setModalOpenState({ ...modalOpenState, open: true, body });
+   
   };
 
   const handleArrive = () => {
