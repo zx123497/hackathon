@@ -175,8 +175,8 @@ const useStyles = makeStyles({
     maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "30%",
-    left: "70%",
+    bottom: "32%",
+    left: "50%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -455,12 +455,6 @@ const Office = () => {
         alt="bulletin board"
         onClick={handleBulletinBoard}
       />
-      <img
-        className={classes.music}
-        src={Music}
-        alt="bulletin board"
-        onClick={handleMusic}
-      />
 
       <img
         className={classes.desk}
@@ -473,6 +467,12 @@ const Office = () => {
         src={timecard}
         alt="bulletin board"
         onClick={handleTimeCard}
+      />
+      <img
+        className={classes.music}
+        src={Music}
+        alt="bulletin board"
+        onClick={handleMusic}
       />
       <img
         src={Telephone}
