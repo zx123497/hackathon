@@ -7,9 +7,18 @@ import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogActions from "@material-ui/core/DialogActions";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
 import Post from "./Post";
+import theme from "./../themes/theme";
 
-const useStyles = makeStyles({});
+const useStyles = makeStyles({
+  fab: {
+    float: "right",
+    bottom: theme.spacing(10),
+    right: theme.spacing(5),
+  },
+});
 
 const PostList = (props) => {
   const classes = useStyles();
@@ -19,39 +28,55 @@ const PostList = (props) => {
   const [input, setInput] = useState("");
   const [currentPost, setCurrentPost] = useState();
 
-  const handleEdit = (id) => {
-    const post = posts.find((post) => post.id === id);
+  const handleEdit = (post) => {
     setCurrentPost(post);
     setInput(post.content);
     setOpenEditModal(true);
   };
 
-  const handleDelete = (id) => {
-    const post = posts.find((post) => post.id === id);
-    setCurrentPost(post);
-    const newPosts = posts.filter((post) => post.id !== id);
-    setPosts(newPosts);
+  const handleTextChange = (e) => {
+    setInput(e.target.value);
+    setCurrentPost({ ...currentPost, content: e.target.value });
   };
 
   const handleSave = () => {
-    const newPosts = posts.map((post) => {
-      if (post === currentPost) {
-        return { ...currentPost, content: input };
-      }
-      return post;
-    });
-    setPosts(newPosts);
-    console.log(posts);
+    if (currentPost.id === undefined) {
+      console.log(currentPost);
+      handleChange(currentPost, "add");
+    } else {
+      handleChange(currentPost, "update");
+    }
     setOpenEditModal(false);
   };
 
-  const handleTextChange = (e) => {
-    setInput(e.target.value);
+  const handleAdd = () => {
+    setCurrentPost({});
+    setOpenEditModal(true);
+  };
+
+  const handleChange = (target, action) => {
+    let newPosts;
+
+    switch (action) {
+      case "add":
+        newPosts = posts.concat(target);
+        break;
+      case "delete":
+        newPosts = posts.filter((post) => post !== target);
+        break;
+      case "update":
+        newPosts = posts.map((post) => (post.id === target.id ? target : post));
+        break;
+      default:
+        break;
+    }
+    console.log(newPosts);
+    setPosts(newPosts);
   };
 
   return (
     <Box bgcolor="green">
-      <Typography p={20} variant="h4" component="h2">
+      <Typography p={20} variant="h4" component="h2" color="white">
         揭示板
       </Typography>
       <Box display="flex" flexWrap="wrap">
@@ -61,11 +86,19 @@ const PostList = (props) => {
             content={post.content}
             author={post.author}
             time={post.time}
-            handleEdit={() => handleEdit(post.id)}
-            handleDelete={() => handleDelete(post.id)}
+            handleEdit={() => handleEdit(post)}
+            handleDelete={() => handleChange(post, "delete")}
           />
         ))}
       </Box>
+      <Fab
+        className={classes.fab}
+        aria-label="add"
+        color="primary"
+        onClick={handleAdd}
+      >
+        <AddIcon />
+      </Fab>
       <Dialog
         open={openEditDialog}
         onClose={() => {}}

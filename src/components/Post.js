@@ -42,12 +42,12 @@ const useStyles = makeStyles({
 
 const Post = (props) => {
   const classes = useStyles();
-  const { handleEdit, handleDelete, author, time, content } = { ...props };
+  const { handleEdit, handleDelete, author, content } = { ...props };
 
   return (
     <div className={classes.root}>
       <img className={classes.image} src={postBlue} alt={content} />
-      <div className={classes.content}>{props.content}</div>
+      <div className={classes.content}>{content}</div>
       <div className={classes.author}>{author}</div>
       <div className={classes.buttons}>
         <IconButton aria-label="edit" onClick={handleEdit}>
