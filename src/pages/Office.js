@@ -30,6 +30,7 @@ import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
+import PostService from "../services/PostService";
 
 const useStyles = makeStyles({
   root: {
@@ -186,6 +187,7 @@ function ActionLink() {
 const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [arrive, setArrive] = useState(false);
   const [myrows, setmyRows] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
@@ -199,6 +201,15 @@ const Office = () => {
   });
 
   useEffect(() => {
+    PostService.getPostList(1).then((res) => {
+      console.log(res);
+      let temp = [];
+      res.map((row) => {
+        temp.push(createRow(row));
+      });
+      setPosts(temp);
+    });
+
     const userphone = [
       { name: "Emily Chen", phonenum: "0901234567" },
       { name: "Kevin Niu", phonenum: "0901234567" },
@@ -208,7 +219,9 @@ const Office = () => {
     ];
     setmyRows(userphone);
   }, []);
-
+  const createRow = (row) => {
+    return { id: row.noteID, content: row.content, author: row.author };
+  };
   // const userphone = [
   //   { name: "Emily Chen", phonenum: "0901234567" },
   //   { name: "Kevin Niu", phonenum: "0901234567" },
@@ -296,15 +309,16 @@ const Office = () => {
   const handleBulletinBoard = () => {
     const body = (
       <PostList
-        posts={[
-          { id: 1, content: "this is a test of postit", author: "manager" },
-          { id: 2, content: "smells like teen spirit", author: "haha" },
-          { id: 3, content: "daydream believer", author: "The Monkees" },
-          { id: 4, content: "Fly me to the moon", author: "John" },
-          { id: 5, content: "Fly me to the moon", author: "John" },
-          { id: 6, content: "Fly me to the moon", author: "John" },
-          { id: 7, content: "Fly me to the moon", author: "John" },
-        ]}
+        // posts={[
+        //   { id: 1, content: "this is a test of postit", author: "manager" },
+        //   { id: 2, content: "smells like teen spirit", author: "haha" },
+        //   { id: 3, content: "daydream believer", author: "The Monkees" },
+        //   { id: 4, content: "Fly me to the moon", author: "John" },
+        //   { id: 5, content: "Fly me to the moon", author: "John" },
+        //   { id: 6, content: "Fly me to the moon", author: "John" },
+        //   { id: 7, content: "Fly me to the moon", author: "John" },
+        // ]}
+        posts={posts}
       />
     );
     setModalOpenState({ ...modalOpenState, open: true, body });

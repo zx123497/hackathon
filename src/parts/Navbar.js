@@ -37,7 +37,7 @@ export default function ButtonAppBar() {
     <AppBar position="static" className={classes.Navbar}>
       <Grid display="inline" container justify="flex-start">
         <Grid item className={classes.Brandname}>
-          <Typography className={classes.middle}>MyRemoteOffice</Typography>
+          <Typography className={classes.middle}>遠端居家辦公室</Typography>
         </Grid>
         <Grid item>
           <IconButton>

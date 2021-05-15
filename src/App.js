@@ -1,5 +1,6 @@
 import "./assets/sass/_normalize.scss";
 import "./assets/sass/_typography.scss";
+
 import { React } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
