@@ -15,7 +15,7 @@ import ChatRoom from "./../components/ChatRoom";
 import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
-import desk from '../assets/images/work_desk.png'
+import desk from "../assets/images/work_desk.png";
 import Telephone from "./../assets/images/telephone_oyaki.png";
 import { mergeClasses } from "@material-ui/styles";
 import PhoneBook from "../components/PhoneBook";
@@ -29,7 +29,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 const useStyles = makeStyles({
   root: {
-    backgroundColor:"#FBC"
+    backgroundColor: "#FBC",
   },
   media: {
     height: 140,
@@ -73,11 +73,10 @@ const useStyles = makeStyles({
   floor: {
     height: "20%",
     width: "100vw",
-    backgroundColor:"#AF8A23",
+    backgroundColor: "#AF8A23",
     position: "fixed",
     bottom: 0,
     left: 0,
-    
   },
   bulletinBoard: {
     maxHeight: "45%",
@@ -94,9 +93,8 @@ const useStyles = makeStyles({
     },
   },
   office: {
-    backgroundColor:"#DFB285",
-    height:"93vh",
-    
+    backgroundColor: "#DFB285",
+    height: "93vh",
 
     "& .chatroom": {
       position: "fixed",
@@ -271,7 +269,7 @@ const Office = () => {
       <div className="chatroom">
         <ChatRoom />
       </div>
-      
+
       <Modal
         opened={TelephoneOpenState.open}
         handleClose={handleTelephoneClose}
@@ -295,7 +293,7 @@ const Office = () => {
         alt="bulletin board"
         onClick={handleBulletinBoard}
       />
-      
+
       <img
         className={classes.desk}
         src={desk}
