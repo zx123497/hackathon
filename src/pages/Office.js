@@ -1,19 +1,28 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Box from "@material-ui/core/Box";
 import bookshelf from "./../assets/images/book_hondana_syodana.png";
-import Container from "@material-ui/core/Container";
+import bulletinBoard from "./../assets/images/keijiban.png";
+import timecardMachine from "./../assets/images/timecard_machine.png";
+import waterServer from "./../assets/images/drink_water_server.png";
+import printer from "./../assets/images/kaden_printer.png";
+import leaderboard from "./../assets/images/champion_board.png";
 import ChatRoom from "./../components/ChatRoom";
 import theme from "./../themes/theme";
 
 const useStyles = makeStyles({
-  root: {},
-  media: {
-    height: 140,
-  },
   bookshelf: {
-    // maxWidth: "300px",
-    maxWidth: "50%",
+    maxHeight: "80%",
+    width: "auto",
+    position: "fixed",
+    bottom: "1em",
+    left: "2em",
+  },
+  bulletinBoard: {
+    maxHeight: "80%",
+    width: "auto",
+    position: "fixed",
+    bottom: "1em",
+    left: "50%",
   },
   office: {
     position: "relative",
@@ -34,7 +43,19 @@ const Office = () => {
         <ChatRoom />
       </div>
       <img className={classes.bookshelf} src={bookshelf} alt="bookshelf" />
-      welcome to the office.
+      <img
+        className={classes.bulletinBoard}
+        src={bulletinBoard}
+        alt="bulletin board"
+      />
+      {/* <img
+        className={classes.bookshelf}
+        src={timecardMachine}
+        alt="bookshelf"
+      />
+      <img className={classes.bookshelf} src={waterServer} alt="bookshelf" />
+      <img className={classes.bookshelf} src={leaderboard} alt="bookshelf" />
+      <img className={classes.bookshelf} src={printer} alt="bookshelf" /> */}
     </div>
   );
 };
