@@ -10,6 +10,8 @@ import timecardMachine from "./../assets/images/timecard_machine.png";
 import waterServer from "./../assets/images/drink_water_server.png";
 import printer from "./../assets/images/kaden_printer.png";
 import leaderboard from "./../assets/images/champion_board.png";
+import coffeeMachine from "./../assets/images/coffee_self_service.png";
+import locker from "./../assets/images/kagu_cabinet_locker_close.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
 import PostList from "../components/PostList";
@@ -131,6 +133,30 @@ const useStyles = makeStyles({
     position: "fixed",
     bottom: "35%",
     left: "35%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  locker: {
+    maxHeight: "35%",
+    width: "auto",
+    position: "fixed",
+    bottom: "15%",
+    left: "63%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  coffeeMachine: {
+    maxHeight: "20%",
+    width: "auto",
+    position: "fixed",
+    bottom: "48%",
+    left: "63%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -270,6 +296,8 @@ const Office = () => {
     setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
+  const handleCoffeeMachine = () => {};
+
   const handleModalClose = () => {
     setModalOpenState({
       open: false,
@@ -316,6 +344,18 @@ const Office = () => {
         src={desk}
         alt="bulletin board"
         onClick={handleTimeCard}
+      />
+      <img
+        className={classes.locker}
+        src={locker}
+        alt="coffee machine"
+        onClick={handleCoffeeMachine}
+      />
+      <img
+        className={classes.coffeeMachine}
+        src={coffeeMachine}
+        alt="coffee machine"
+        onClick={handleCoffeeMachine}
       />
       <img
         className={classes.timecard}
