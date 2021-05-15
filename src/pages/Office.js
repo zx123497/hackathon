@@ -31,6 +31,9 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
+import { Link } from "react-router-dom";
+import PostService from "../services/PostService";
+
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#FBC",
@@ -51,16 +54,16 @@ const useStyles = makeStyles({
     },
   },
   door: {
-    maxHeight: "65%",
+    maxHeight: "75%",
     width: "auto",
     position: "fixed",
-    bottom: "16%",
+    bottom: "7%",
     left: "75%",
-    "&:hover": {
-      transform: "scale(1.05)",
-      transition: "0.5s",
-      cursor: "pointer",
-    },
+    // "&:hover": {
+    //   transform: "scale(1.05)",
+    //   transition: "0.5s",
+    //   cursor: "pointer",
+    // },
   },
   timecard: {
     maxHeight: "15%",
@@ -194,11 +197,25 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
 });
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log("The link was clicked.");
+  }
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
 
 const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [arrive, setArrive] = useState(false);
+  const [myrows, setmyRows] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
     open: false,
     openTimeCard: false,
@@ -209,13 +226,35 @@ const Office = () => {
     open: false,
   });
 
-  const userphone = [
-    { name: "Emily Chen", phonenum: "0901234567" },
-    { name: "Kevin Niu", phonenum: "0901234567" },
-    { name: "Allen Hsieh", phonenum: "0901234567" },
-    { name: "Martin Lee", phonenum: "0901234567" },
-    { name: "Harrison Lin", phonenum: "0901234567" },
-  ];
+  useEffect(() => {
+    PostService.getPostList(1).then((res) => {
+      console.log(res);
+      let temp = [];
+      res.map((row) => {
+        temp.push(createRow(row));
+      });
+      setPosts(temp);
+    });
+
+    const userphone = [
+      { name: "Emily Chen", phonenum: "0901234567" },
+      { name: "Kevin Niu", phonenum: "0901234567" },
+      { name: "Allen Hsieh", phonenum: "0901234567" },
+      { name: "Martin Lee", phonenum: "0901234567" },
+      { name: "Harrison Lin", phonenum: "0901234567" },
+    ];
+    setmyRows(userphone);
+  }, []);
+  const createRow = (row) => {
+    return { id: row.noteID, content: row.content, author: row.author };
+  };
+  // const userphone = [
+  //   { name: "Emily Chen", phonenum: "0901234567" },
+  //   { name: "Kevin Niu", phonenum: "0901234567" },
+  //   { name: "Allen Hsieh", phonenum: "0901234567" },
+  //   { name: "Martin Lee", phonenum: "0901234567" },
+  //   { name: "Harrison Lin", phonenum: "0901234567" },
+  // ];
 
   useEffect(() => {
     const fakeTime = [
@@ -225,6 +264,7 @@ const Office = () => {
     ];
     setRows(fakeTime);
   }, []);
+
   const handleModalOpen = () => {
     setModalOpenState({ ...modalOpenState, open: true });
   };
@@ -251,6 +291,19 @@ const Office = () => {
     setTelephoneOpenState({
       open: false,
     });
+  };
+  const handlenewphone = () => {
+    const namerow = { name: name, phonenum: pnum };
+    const new_arr = myrows.concat(namerow);
+    setmyRows(new_arr);
+
+    console.log(new_arr);
+  };
+  const handleChange = (e) => {
+    setName(e.target.value);
+  };
+  const handleChangeNum = (e) => {
+    setNum(e.target.value);
   };
 
   const handleArrive = () => {
@@ -282,15 +335,16 @@ const Office = () => {
   const handleBulletinBoard = () => {
     const body = (
       <PostList
-        posts={[
-          { id: 1, content: "this is a test of postit", author: "manager" },
-          { id: 2, content: "smells like teen spirit", author: "haha" },
-          { id: 3, content: "daydream believer", author: "The Monkees" },
-          { id: 4, content: "Fly me to the moon", author: "John" },
-          { id: 5, content: "Fly me to the moon", author: "John" },
-          { id: 6, content: "Fly me to the moon", author: "John" },
-          { id: 7, content: "Fly me to the moon", author: "John" },
-        ]}
+        // posts={[
+        //   { id: 1, content: "this is a test of postit", author: "manager" },
+        //   { id: 2, content: "smells like teen spirit", author: "haha" },
+        //   { id: 3, content: "daydream believer", author: "The Monkees" },
+        //   { id: 4, content: "Fly me to the moon", author: "John" },
+        //   { id: 5, content: "Fly me to the moon", author: "John" },
+        //   { id: 6, content: "Fly me to the moon", author: "John" },
+        //   { id: 7, content: "Fly me to the moon", author: "John" },
+        // ]}
+        posts={posts}
       />
     );
     setModalOpenState({ ...modalOpenState, open: true, body });
@@ -298,6 +352,8 @@ const Office = () => {
 
   const handleCoffeeMachine = () => {};
 
+  const [name, setName] = useState("");
+  const [pnum, setNum] = useState("");
   const handleModalClose = () => {
     setModalOpenState({
       open: false,
@@ -315,16 +371,56 @@ const Office = () => {
       >
         <h4 className={classes.word}>PhoneBook</h4>
         <br></br>
-        {userphone.map((phone) => (
+        <div>
+          <tr>
+            Name:{" "}
+            <input
+              className={classes.table}
+              type="text"
+              onChange={handleChange}
+              value={name}
+            />
+          </tr>
+          <br></br>
+          <tr>
+            Phone:{" "}
+            <input
+              className={classes.table}
+              type="text"
+              onChange={handleChangeNum}
+              value={pnum}
+            />
+          </tr>
+          <div style={{ display: "flex" }}>
+            <span style={{ flexGrow: 1 }}></span>
+            <Button
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "1rem",
+              }}
+              onClick={handlenewphone}
+              variant="outlined"
+              color="primary"
+            >
+              Upload
+            </Button>
+          </div>
+        </div>
+        {myrows.map((phone) => (
           <PhoneBook phone={phone}></PhoneBook>
         ))}
       </Modal>
-      <img
-        className={classes.door}
-        src={doorclose}
-        onMouseOver={(e) => (e.currentTarget.src = dooropen)}
-        alt="bulletin board"
-      />
+      <Link to={"/"}>
+        <img
+          className={classes.door}
+          src={doorclose}
+          onMouseOver={(e) => (e.currentTarget.src = dooropen)}
+          onMouseOut={(e) => (e.currentTarget.src = doorclose)}
+          alt="bulletin board"
+        />
+      </Link>
+
       <img
         className={classes.bookshelf}
         src={bookshelf}

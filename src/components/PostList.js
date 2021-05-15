@@ -11,7 +11,10 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import Post from "./Post";
 import theme from "./../themes/theme";
-
+import PostService from "../services/PostService";
+import "../../node_modules/noty/lib/noty.css";
+import "../../node_modules/noty/lib/themes/mint.css";
+import Noty from "noty";
 const useStyles = makeStyles({
   fab: {
     float: "right",
@@ -59,7 +62,24 @@ const PostList = (props) => {
 
     switch (action) {
       case "add":
-        newPosts = posts.concat(target);
+        const new_post = { content: target.content, author: "Emily" };
+        newPosts = posts.concat(new_post);
+        PostService.postPost({
+          content: target.content,
+          author: "Emily",
+          officeId: 1,
+        }).then((res) => {
+          console.log(res);
+          new Noty({
+            type: "info",
+            layout: "topRight",
+            theme: "nest",
+            text: `新增便利貼成功`,
+            timeout: "4000",
+            progressBar: true,
+            closeWith: ["click"],
+          }).show();
+        });
         break;
       case "delete":
         newPosts = posts.filter((post) => post !== target);
