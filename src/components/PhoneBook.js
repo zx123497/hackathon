@@ -28,26 +28,12 @@ const useStyles = makeStyles({
   },
 });
 
-class addPhone  {
-    render(){
-  return (
-    <div>
-      Name: <input type="txt" value="" />
-      Phone: <input type="txt" value="" />
-    </div>
-  )
-    }
-
-}
-
-
 const PhoneBook = (props) => {
   const classes = useStyles();
 
   const { name, phonenum } = props.phone;
 
   return (
-      <addPhone/>
     <tr className={classes.mylist}>
       <td className={classes.myrow}>{name}</td>
       <td>{phonenum}</td>
