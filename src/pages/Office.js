@@ -118,11 +118,25 @@ const useStyles = makeStyles({
     textAlign: "center",
   },
 });
+function ActionLink() {
+  function handleClick(e) {
+    e.preventDefault();
+    console.log("The link was clicked.");
+  }
+
+  return (
+    <a href="#" onClick={handleClick}>
+      Click me
+    </a>
+  );
+}
 
 const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [arrive, setArrive] = useState(false);
+  const [namerow, setName] = useState([]);
+  const [phonerow, setphone] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
     open: false,
     openTimeCard: false,
@@ -160,7 +174,7 @@ const Office = () => {
         <Button className="uploadBtn">上傳檔案</Button>
       </>
     );
-    setModalOpenState({ ...modalOpenState, open: true,body });
+    setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
   const handleTelephoneOpen = () => {
@@ -175,7 +189,13 @@ const Office = () => {
     setTelephoneOpenState({
       open: false,
     });
-   
+  };
+  const handlenewphone = () => {
+    const namerow = { name: "Emily", phonenum: "09:00:00" };
+    const new_arr = rows.concat(namerow);
+    setRows(namerow);
+
+    console.log(rows);
   };
 
   const handleArrive = () => {
@@ -227,6 +247,29 @@ const Office = () => {
       >
         <h4 className={classes.word}>PhoneBook</h4>
         <br></br>
+        <div>
+          <tr>
+            Name: <input id="newname" type="text" value="" />
+          </tr>
+          <tr>
+            Phone: <input type="text" value="" />
+          </tr>
+          <div style={{ display: "flex" }}>
+            <span style={{ flexGrow: 1 }}></span>
+            <Button
+              style={{
+                display: "flex",
+                justifyContent: "center",
+                margin: "1rem",
+              }}
+              onclick={handlenewphone}
+              variant="outlined"
+              color="primary"
+            >
+              Upload
+            </Button>
+          </div>
+        </div>
         {userphone.map((phone) => (
           <PhoneBook phone={phone}></PhoneBook>
         ))}
