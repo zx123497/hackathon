@@ -9,9 +9,11 @@ import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import { Link } from "react-router-dom";
+import CardImage from "../assets/images/card.png";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
+    boxShadow: "0 3px 10px rgba(0,0,0,0.2)",
   },
   media: {
     height: 140,
@@ -37,7 +39,7 @@ const OfficeCard = (props) => {
       <CardActionArea>
         <CardMedia
           className={classes.media}
-          image="https://placekitten.com/g/200/300"
+          image={CardImage}
           title="Is this image title?"
         />
         <CardContent>
