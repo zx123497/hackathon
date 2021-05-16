@@ -36,7 +36,8 @@ import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import Mozart from "./../assets/images/Mozart.jpg";
 import PostService from "../services/PostService";
-
+import { Howl, Howler } from "howler";
+import bgm from "./../assets/sounds/bgm.mp3";
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#FBC",
@@ -256,7 +257,9 @@ const Office = () => {
   const [MusicOpenState, setMusicOpenState] = useState({
     open: false,
   });
-
+  const sound = new Howl({
+    src: [bgm],
+  });
   const handleMusicOpen = () => {
     setMusicOpenState({ ...MusicOpenState, open: true });
   };
@@ -304,6 +307,13 @@ const Office = () => {
         temp.push(createRow(row));
       });
       setPosts(temp);
+      const fakeTime = [
+        { name: "Eric", arrive_time: "00:00:00", leave_time: "12:00:00" },
+        { name: "Amanda", arrive_time: "00:00:00", leave_time: "12:00:00" },
+        { name: "Amy", arrive_time: "00:00:00", leave_time: "12:00:00" },
+      ];
+      setRows(fakeTime);
+      sound.play();
     });
 
     const userphone = [
@@ -325,15 +335,6 @@ const Office = () => {
   //   { name: "Martin Lee", phonenum: "0901234567" },
   //   { name: "Harrison Lin", phonenum: "0901234567" },
   // ];
-
-  useEffect(() => {
-    const fakeTime = [
-      { name: "Eric", arrive_time: "00:00:00", leave_time: "12:00:00" },
-      { name: "Amanda", arrive_time: "00:00:00", leave_time: "12:00:00" },
-      { name: "Amy", arrive_time: "00:00:00", leave_time: "12:00:00" },
-    ];
-    setRows(fakeTime);
-  }, []);
 
   const handleModalOpen = () => {
     setModalOpenState({ ...modalOpenState, open: true });
@@ -488,8 +489,14 @@ const Office = () => {
         <img
           className={classes.door}
           src={doorclose}
-          onMouseOver={(e) => (e.currentTarget.src = dooropen)}
-          onMouseOut={(e) => (e.currentTarget.src = doorclose)}
+          onClick={() => {}}
+          onMouseOver={(e) => {
+            sound.pause();
+            e.currentTarget.src = dooropen;
+          }}
+          onMouseOut={(e) => {
+            e.currentTarget.src = doorclose;
+          }}
           alt="bulletin board"
         />
       </Link>

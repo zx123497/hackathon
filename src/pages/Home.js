@@ -14,13 +14,32 @@ const useStyles = makeStyles({
   root: {
     width: "100%",
     margin: "2% 5%",
+
     display: "flex",
     justifyContent: "center",
+    "& .card": {
+      boxShadow: "0 3px 10px rgba(0,0,0,0.2)",
+      width: "20%",
+      minWidth: "max-content",
+      margin: theme.spacing(2),
+      "&:hover": {
+        transform: "scale(1.05)",
+        transition: "0.5s",
+      },
+    },
   },
   fab: {
     position: "fixed",
     bottom: theme.spacing(5),
     right: theme.spacing(5),
+  },
+  Modal: {
+    "& .addBtn": {
+      width: "100%",
+      marginTop: "1rem",
+      backgroundColor: theme.palette.primary.main,
+      color: "#FFF",
+    },
   },
 });
 
@@ -83,13 +102,15 @@ const Home = () => {
       <Box display="flex" flexWrap="wrap" spacing={1}>
         {offices.map((office) => (
           // minWidth有點問題
-          <Box p={1} pt={2} minWidth={1 / 5}>
-            <OfficeCard
-              component={Link}
-              to={`/office/:${office.id}`}
-              office={office}
-            ></OfficeCard>
-          </Box>
+          <div className="card">
+            <Box p={1} pt={2} minWidth={1 / 5}>
+              <OfficeCard
+                component={Link}
+                to={`/office/:${office.id}`}
+                office={office}
+              ></OfficeCard>
+            </Box>
+          </div>
         ))}
       </Box>
       <Fab
@@ -98,7 +119,7 @@ const Home = () => {
         onClick={handleOpen}
         className={classes.fab}
       >
-        <AddIcon />
+        <AddIcon style={{ color: "#FFF" }} />
       </Fab>
       <Modal
         className={classes.Modal}
@@ -118,7 +139,9 @@ const Home = () => {
           value={modalOpenState.title}
           onChange={handleTitleChanged}
         />
-        <Button onClick={handleAddRoom}>新增</Button>
+        <Button className="addBtn" onClick={handleAddRoom}>
+          新增
+        </Button>
       </Modal>
     </div>
   );
