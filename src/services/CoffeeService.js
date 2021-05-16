@@ -11,7 +11,7 @@ const CoffeeService = {
   },
   postAddPrize: async (id, data) => {
     try {
-      const response = await axios.post(`/user/${id}`, data);
+      const response = await axios.put(`/user/${id}`, data);
       return response.data;
     } catch (error) {
       throw error;
