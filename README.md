@@ -52,4 +52,6 @@
 ## 技術
 
 前端: [React](https://zh-hant.reactjs.org)
-後端: [Spring Boot](https://spring.io/projects/spring-boot)
+
+後端: [後端原始碼](https://gitlab.com/hsiasia/hackthonbackend)、
+[Spring Boot](https://spring.io/projects/spring-boot)
