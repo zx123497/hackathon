@@ -1,5 +1,6 @@
 import "./assets/sass/_normalize.scss";
 import "./assets/sass/_typography.scss";
+
 import { React } from "react";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ThemeProvider } from "@material-ui/core/styles";
@@ -25,7 +26,7 @@ const App = () => {
                     <Switch>
                       <Route path="/" exact component={Home} />
                       <Route path="/test" exact component={test} />
-                      <Route path="/office" exact component={Office} />
+                      <Route path="/office/:id" exact component={Office} />
                     </Switch>
                   </main>
                 </>

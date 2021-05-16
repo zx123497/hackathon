@@ -10,8 +10,11 @@ import timecardMachine from "./../assets/images/timecard_machine.png";
 import waterServer from "./../assets/images/drink_water_server.png";
 import printer from "./../assets/images/kaden_printer.png";
 import leaderboard from "./../assets/images/champion_board.png";
+import coffeeMachine from "./../assets/images/coffee_self_service.png";
+import locker from "./../assets/images/kagu_cabinet_locker_close.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
+import Coffee from "./../components/Coffee";
 import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
@@ -32,6 +35,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import Mozart from "./../assets/images/Mozart.jpg";
+import PostService from "../services/PostService";
 
 const useStyles = makeStyles({
   root: {
@@ -45,7 +49,7 @@ const useStyles = makeStyles({
     width: "auto",
     position: "fixed",
     bottom: "1rem",
-    left: "5%",
+    left: "-3%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -68,8 +72,8 @@ const useStyles = makeStyles({
     maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "35%",
-    left: "47%",
+    bottom: "44.3%",
+    left: "24%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -81,7 +85,7 @@ const useStyles = makeStyles({
     width: "30%",
     position: "fixed",
     bottom: "1rem",
-    left: "30%",
+    left: "32%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -134,7 +138,43 @@ const useStyles = makeStyles({
     width: "auto",
     position: "fixed",
     bottom: "35%",
-    left: "35%",
+    left: "37%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  locker: {
+    maxHeight: "35%",
+    width: "auto",
+    position: "fixed",
+    bottom: "15%",
+    left: "63%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  locker2: {
+    maxHeight: "30%",
+    width: "auto",
+    position: "fixed",
+    bottom: "15%",
+    left: "23%",
+    "&:hover": {
+      transform: "scale(1.05)",
+      transition: "0.5s",
+      cursor: "pointer",
+    },
+  },
+  coffeeMachine: {
+    maxHeight: "20%",
+    width: "auto",
+    position: "fixed",
+    bottom: "48%",
+    left: "63.3%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -175,8 +215,8 @@ const useStyles = makeStyles({
     maxHeight: "15%",
     width: "auto",
     position: "fixed",
-    bottom: "32%",
-    left: "50",
+    bottom: "35%",
+    left: "47%",
     "&:hover": {
       transform: "scale(1.05)",
       transition: "0.5s",
@@ -200,6 +240,7 @@ function ActionLink() {
 const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
+  const [posts, setPosts] = useState([]);
   const [arrive, setArrive] = useState(false);
   const [myrows, setmyRows] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
@@ -256,6 +297,15 @@ const Office = () => {
   ]);
 
   useEffect(() => {
+    PostService.getPostList(1).then((res) => {
+      console.log(res);
+      let temp = [];
+      res.map((row) => {
+        temp.push(createRow(row));
+      });
+      setPosts(temp);
+    });
+
     const userphone = [
       { name: "Emily Chen", phonenum: "0901234567" },
       { name: "Kevin Niu", phonenum: "0901234567" },
@@ -265,6 +315,16 @@ const Office = () => {
     ];
     setmyRows(userphone);
   }, []);
+  const createRow = (row) => {
+    return { id: row.noteID, content: row.content, author: row.author };
+  };
+  // const userphone = [
+  //   { name: "Emily Chen", phonenum: "0901234567" },
+  //   { name: "Kevin Niu", phonenum: "0901234567" },
+  //   { name: "Allen Hsieh", phonenum: "0901234567" },
+  //   { name: "Martin Lee", phonenum: "0901234567" },
+  //   { name: "Harrison Lin", phonenum: "0901234567" },
+  // ];
 
   useEffect(() => {
     const fakeTime = [
@@ -345,19 +405,26 @@ const Office = () => {
   const handleBulletinBoard = () => {
     const body = (
       <PostList
-        posts={[
-          { id: 1, content: "this is a test of postit", author: "manager" },
-          { id: 2, content: "smells like teen spirit", author: "haha" },
-          { id: 3, content: "daydream believer", author: "The Monkees" },
-          { id: 4, content: "Fly me to the moon", author: "John" },
-          { id: 5, content: "Fly me to the moon", author: "John" },
-          { id: 6, content: "Fly me to the moon", author: "John" },
-          { id: 7, content: "Fly me to the moon", author: "John" },
-        ]}
+        // posts={[
+        //   { id: 1, content: "this is a test of postit", author: "manager" },
+        //   { id: 2, content: "smells like teen spirit", author: "haha" },
+        //   { id: 3, content: "daydream believer", author: "The Monkees" },
+        //   { id: 4, content: "Fly me to the moon", author: "John" },
+        //   { id: 5, content: "Fly me to the moon", author: "John" },
+        //   { id: 6, content: "Fly me to the moon", author: "John" },
+        //   { id: 7, content: "Fly me to the moon", author: "John" },
+        // ]}
+        posts={posts}
       />
     );
     setModalOpenState({ ...modalOpenState, open: true, body });
   };
+
+  const handleCoffeeMachine = () => {
+    const body = <Coffee />;
+    setModalOpenState({ ...modalOpenState, open: true, body });
+  };
+
   const [name, setName] = useState("");
   const [pnum, setNum] = useState("");
   const handleModalClose = () => {
@@ -461,6 +528,24 @@ const Office = () => {
         src={desk}
         alt="bulletin board"
         onClick={handleTimeCard}
+      />
+      <img
+        className={classes.locker}
+        src={locker}
+        alt="coffee machine"
+        onClick={handleCoffeeMachine}
+      />
+      <img
+        className={classes.locker2}
+        src={locker}
+        alt="coffee machine"
+        onClick={handleCoffeeMachine}
+      />
+      <img
+        className={classes.coffeeMachine}
+        src={coffeeMachine}
+        alt="coffee machine"
+        onClick={handleCoffeeMachine}
       />
       <img
         className={classes.timecard}

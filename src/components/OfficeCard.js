@@ -8,7 +8,7 @@ import CardMedia from "@material-ui/core/CardMedia";
 import Box from "@material-ui/core/Box";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 const useStyles = makeStyles({
   root: {
     maxWidth: 345,
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
 const OfficeCard = (props) => {
   const classes = useStyles();
 
-  const { name, isManager } = props.office;
+  const { id, name, isManager } = props.office;
   // if props isManager then render "Is Manager Tag"
   let managerTag = <></>;
   if (isManager) {
@@ -33,7 +33,7 @@ const OfficeCard = (props) => {
   }
 
   return (
-    <Card component={Link}  to={'/office'} className={classes.root}>
+    <Card component={Link} to={`/office/${id}`} className={classes.root}>
       <CardActionArea>
         <CardMedia
           className={classes.media}
