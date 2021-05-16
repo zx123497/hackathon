@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Box from "@material-ui/core/Box";
+import Container from "@material-ui/core/Container";
 import OfficeCard from "./../components/OfficeCard";
 import { makeStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
@@ -79,11 +80,11 @@ const Home = () => {
     setModalOpenState({ ...modalOpenState, title: value });
   };
   return (
-    <div className={classes.root}>
-      <Box display="flex" flexWrap="wrap" spacing={1}>
+    <Container>
+      <Container>
         {offices.map((office) => (
           // minWidth有點問題
-          <Box p={1} pt={2} minWidth={1 / 5}>
+          <Box display="inline-block" p={1} pt={2} minWidth={250}>
             <OfficeCard
               component={Link}
               to={`/office/:${office.id}`}
@@ -91,7 +92,7 @@ const Home = () => {
             ></OfficeCard>
           </Box>
         ))}
-      </Box>
+      </Container>
       <Fab
         aria-label="add"
         color="primary"
@@ -120,7 +121,7 @@ const Home = () => {
         />
         <Button onClick={handleAddRoom}>新增</Button>
       </Modal>
-    </div>
+    </Container>
   );
 };
 

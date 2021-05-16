@@ -6,6 +6,7 @@ import background from "./../assets/images/background.png";
 import timecard from "./../assets/images/timecard_machine.png";
 import bulletinBoard from "./../assets/images/keijiban.png";
 import { Button } from "@material-ui/core";
+import Grid from "@material-ui/core/Grid";
 import timecardMachine from "./../assets/images/timecard_machine.png";
 import waterServer from "./../assets/images/drink_water_server.png";
 import printer from "./../assets/images/kaden_printer.png";
@@ -15,6 +16,7 @@ import locker from "./../assets/images/kagu_cabinet_locker_close.png";
 import Container from "@material-ui/core/Container";
 import ChatRoom from "./../components/ChatRoom";
 import Coffee from "./../components/Coffee";
+import CoffeeRank from "./../components/CoffeeRank";
 import PostList from "../components/PostList";
 import theme from "./../themes/theme";
 import Modal from "../components/Modal/Modal";
@@ -34,6 +36,7 @@ import TableRow from "@material-ui/core/TableRow";
 import Paper from "@material-ui/core/Paper";
 import { Link } from "react-router-dom";
 import PostService from "../services/PostService";
+import CoffeeService from "../services/CoffeeService";
 
 const useStyles = makeStyles({
   root: {
@@ -215,6 +218,7 @@ const Office = () => {
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [posts, setPosts] = useState([]);
+  const [coffeeList, setCoffeeList] = useState([]);
   const [arrive, setArrive] = useState(false);
   const [myrows, setmyRows] = useState([]);
   const [modalOpenState, setModalOpenState] = useState({
@@ -228,6 +232,31 @@ const Office = () => {
   });
 
   useEffect(() => {
+    CoffeeService.getCoffeeRankList(1).then((res) => {
+      console.log(res);
+      let temp = [];
+      res.map((row) => {
+        row = {
+          name: row.userName,
+          amount: row.prize,
+        };
+        temp.push(row);
+      });
+      console.log(temp);
+
+      temp.sort((a, b) => {
+        if (a.amount < b.amount) {
+          return -1;
+        }
+        if (a.amount > b.amount) {
+          return 1;
+        }
+        return 0;
+      });
+      temp.map((row, index) => (row.rank = index + 1));
+      console.log(temp);
+      setCoffeeList(temp);
+    });
     PostService.getPostList(1).then((res) => {
       console.log(res);
       let temp = [];
@@ -249,6 +278,7 @@ const Office = () => {
   const createRow = (row) => {
     return { id: row.noteID, content: row.content, author: row.author };
   };
+
   // const userphone = [
   //   { name: "Emily Chen", phonenum: "0901234567" },
   //   { name: "Kevin Niu", phonenum: "0901234567" },
@@ -352,7 +382,22 @@ const Office = () => {
   };
 
   const handleCoffeeMachine = () => {
-    const body = <Coffee />;
+    // const list = [
+    //   { rank: 2, name: "Jimi Hendrix", amount: "850.c." },
+    //   { rank: 1, name: "John Doe", amount: "1000c.c." },
+    //   { rank: 4, name: "Janis Joplin", amount: "500c.c." },
+    //   { rank: 3, name: "Kurt Kobain", amount: "700c.c." },
+    // ];
+    const body = (
+      <Grid container spacing={2} alignItems="flex-end" spacing={5}>
+        <Grid item>
+          <CoffeeRank list={coffeeList} />
+        </Grid>
+        <Grid item>
+          <Coffee />
+        </Grid>
+      </Grid>
+    );
     setModalOpenState({ ...modalOpenState, open: true, body });
   };
 
