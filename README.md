@@ -1,71 +1,57 @@
-# Getting Started with Create React App
+# 北區 DSC 黑客松-遠端居家辦公事
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## 團隊組成
 
-## Available Scripts
+**第 17 組**
+陳明昊 藍中璟 鈕愷夏 謝沐昕
 
-In the project directory, you can run:
+## 介紹
 
-### `npm start`
+遠端居家辦公室是為遠距辦公設計的網頁，目的是希望打造一個對辦公室成員實用、方便、簡單操作的虛擬辦公室．
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### 首頁
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+使用者的首頁會顯示當前加入的辦公室圖卡，點擊即可進入此辦公室。使用者對於辦公室有兩種身份：Manager、一般成員。 若使用者是辦公室的 Manager，對辦公室內部的操作權限較高，且身份會顯示在辦公室圖卡旁邊，若使用者是一般成員，圖卡不會標明身份。 右下角的＋符號可以供使用者新增辦公室。
 
-### `npm test`
+### 辦公室
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+進入到辦公室後，使用者會看到許多用卡通圖構成的辦公室傢俱，每項傢俱皆可點選，並有特定功能。
 
-### `npm run build`
+**書櫃**
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+辦公室最左側得書櫃是存放重要共同檔案文件的地方，點擊書櫃圖示後即可檢索書櫃中存放的共用資料。產品企劃書、工具使用說明書、會議紀錄皆會儲存於此。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+**佈告欄**
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+辦公室後方的佈告欄是存放臨時便條紙條的地方，點擊佈告欄圖示後即可查看佈告欄中放置的紙條，並且對便條都會有新增、刪除、修改、查詢的功能。ToDo 資料，近期的開會通知皆會貼上於此。
 
-### `npm run eject`
+**打卡機**
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+小櫃子上的打卡機是員工上下班打卡的地方，點擊打卡機圖示後即可查看目前辦公室成員打卡狀態。點擊底下打卡功能，會在打卡資料表留下個人的名字及上班時間，按鈕會切換成下班，再點擊一次即可打卡下班。
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+**電話**
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+書桌上的電話是存放辦公室員工資料的地方，點擊電話圖示後即可查看辦公室成員的名字及聯絡資訊，並可在上方新增員工名字及聯絡資訊。
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+**音樂播放器**
 
-## Learn More
+書桌上的音樂播放器內存放平時辦公室會播出的音樂抑或是平時上班工作的聲音。點擊音樂播放器會跳出唱盤，並顯示出音樂清單。
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+**聊天室**
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+辦公室的左下角有聊天室，輸入文字、點擊箭頭後即可發送訊息，功能如同一般的線上聊天室。
 
-### Code Splitting
+**咖啡機**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+書桌旁的咖啡機是我們設計的辦公時間排行榜。使用者待在辦公室內每隔一段時間可以去咖啡機內裝咖啡，並收集成個人的累積咖啡 cc 數。在頁面的上方會顯示出累積咖啡的排行榜。
 
-### Analyzing the Bundle Size
+**門**
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+點擊門可以離開此間辦公室。
 
-### Making a Progressive Web App
+## 技術
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+前端: [React](https://zh-hant.reactjs.org)
 
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-"# hackathon" 
+後端: [後端原始碼](https://gitlab.com/hsiasia/hackthonbackend)、
+[Spring Boot](https://spring.io/projects/spring-boot)
