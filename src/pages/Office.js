@@ -38,6 +38,9 @@ import Mozart from "./../assets/images/Mozart.jpg";
 import PostService from "../services/PostService";
 import { Howl, Howler } from "howler";
 import bgm from "./../assets/sounds/bgm.mp3";
+import Input from "../components/Input/Input";
+import useTheme from "@material-ui/core/styles/useTheme";
+import FileService from "../services/FileService";
 const useStyles = makeStyles({
   root: {
     backgroundColor: "#FBC",
@@ -239,6 +242,7 @@ function ActionLink() {
 }
 
 const Office = () => {
+  const theme = useTheme();
   const classes = useStyles();
   const [rows, setRows] = useState([]);
   const [posts, setPosts] = useState([]);
@@ -247,7 +251,9 @@ const Office = () => {
   const [modalOpenState, setModalOpenState] = useState({
     open: false,
     openTimeCard: false,
+    openBook: false,
     body: <></>,
+    file: "",
   });
 
   const [TelephoneOpenState, setTelephoneOpenState] = useState({
@@ -298,7 +304,7 @@ const Office = () => {
       src: "",
     },
   ]);
-
+  const [down, setDown] = useState([]);
   useEffect(() => {
     PostService.getPostList(1).then((res) => {
       console.log(res);
@@ -314,6 +320,14 @@ const Office = () => {
       ];
       setRows(fakeTime);
       sound.play();
+      FileService.getFileList().then((res) => {
+        console.log(res);
+        let down_temp = [];
+        res.map((row) => {
+          down_temp.push(createDown(row));
+        });
+        setDown(down_temp);
+      });
     });
 
     const userphone = [
@@ -336,18 +350,14 @@ const Office = () => {
   //   { name: "Harrison Lin", phonenum: "0901234567" },
   // ];
 
+  const handleFile = (id, value) => {
+    setModalOpenState({ ...modalOpenState, file: value });
+  };
   const handleModalOpen = () => {
     setModalOpenState({ ...modalOpenState, open: true });
   };
   const handleBookshelf = () => {
-    const body = (
-      <>
-        <h3 className="title">~檔案櫃~</h3>
-        <div className="files"></div>
-        <Button className="uploadBtn">上傳檔案</Button>
-      </>
-    );
-    setModalOpenState({ ...modalOpenState, open: true, body });
+    setModalOpenState({ ...modalOpenState, openBook: true });
   };
 
   const handleTelephoneOpen = () => {
@@ -432,9 +442,31 @@ const Office = () => {
     setModalOpenState({
       open: false,
       openTimeCard: false,
+      openBook: false,
+      body: <></>,
+      file: "",
     });
   };
 
+  const handleUpload = () => {
+    const data = modalOpenState.file;
+    const body = new FormData();
+    body.append("file", data);
+    FileService.postFile(body).then((res) => {
+      console.log(res);
+      FileService.getFileList().then((res) => {
+        let down_tmp = [];
+        res.map((row) => {
+          down_tmp.push(createDown(row));
+        });
+        setDown(down_tmp);
+        handleModalClose();
+      });
+    });
+  };
+  const createDown = (data) => {
+    return { fileName: data.fileName, url: data.url };
+  };
   return (
     <div className={classes.office}>
       <div className={classes.floor}></div>
@@ -595,6 +627,57 @@ const Office = () => {
         handleClose={handleModalClose}
       >
         {modalOpenState.body}
+      </Modal>
+      <Modal
+        className={classes.Modal}
+        opened={modalOpenState.openBook}
+        handleClose={handleModalClose}
+      >
+        <h3 className="title">~檔案櫃~</h3>
+        <div className="files">
+          {down.map((row) => (
+            <div
+              style={{
+                backgroundColor: theme.palette.primary.main,
+                color: "#FFF",
+                padding: "5px",
+                borderRadius: "5px",
+
+                margin: "2rem",
+              }}
+            >
+              <a
+                style={{
+                  color: "#FFF",
+                }}
+                download
+                target="_blank"
+                href={row.url}
+              >
+                {row.fileName}
+              </a>
+            </div>
+          ))}
+        </div>
+        <Input
+          key="upload"
+          id="upload"
+          elementType="file"
+          value={modalOpenState.file}
+          onChange={handleFile}
+          label="選擇上傳文件"
+        />
+        <Button
+          onClick={handleUpload}
+          style={{
+            width: "100%",
+            marginTop: "1rem",
+            border: `1px ${theme.palette.primary.main} solid`,
+            color: theme.palette.primary.main,
+          }}
+        >
+          上傳文件
+        </Button>
       </Modal>
       <Modal
         className={classes.Modal}
